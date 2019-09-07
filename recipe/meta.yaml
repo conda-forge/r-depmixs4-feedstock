@@ -1,4 +1,4 @@
-{% set version = '1.3-5' %}
+{% set version = '1.4-0' %}
 {% set posix = 'm2-' if win else '' %}
 {% set native = 'm2w64-' if win else '' %}
 
@@ -10,18 +10,18 @@ source:
   url:
     - {{ cran_mirror }}/src/contrib/depmixS4_{{ version }}.tar.gz
     - {{ cran_mirror }}/src/contrib/Archive/depmixS4/depmixS4_{{ version }}.tar.gz
-  sha256: 78c27080fdfdf93e4f06dcde83958863493cecf615e1d0b51a9fd709bdebab94
+  sha256: 826f7b376428bc212778674a3e810d7b1b505b7385e7d38132eca878dedc106d
 
 build:
   merge_build_host: True  # [win]
-  number: 1001
+  number: 0
   rpaths:
     - lib/R/lib/
     - lib/
 
 requirements:
   build:
-    - {{ compiler('c') }}        # [unix]
+    - {{ compiler('c') }}              # [not win]
     - {{ compiler('m2w64_c') }}        # [win]
     - {{posix}}filesystem        # [win]
     - {{posix}}make
@@ -32,34 +32,51 @@ requirements:
     - r-base
     - r-mass
     - r-rsolnp
+    - r-nlme
     - r-nnet
   run:
     - r-base
     - {{native}}gcc-libs         # [win]
     - r-mass
     - r-rsolnp
+    - r-nlme
     - r-nnet
 
 test:
   commands:
-    - $R -e "library('depmixS4')"           # [unix]
+    - $R -e "library('depmixS4')"           # [not win]
     - "\"%R%\" -e \"library('depmixS4')\""  # [win]
 
 about:
   home: http://depmix.r-forge.r-project.org/
-  license: GPL (>= 2)
+  license: GPL-2
   summary: Fits latent (hidden) Markov models on mixed categorical and continuous (time series)
-    data, otherwise known as dependent mixture models.
-  license_family: GPL3
-  license_file: '{{ environ["PREFIX"] }}/lib/R/share/licenses/GPL-3'
+    data, otherwise known as dependent mixture models, see Visser & Speekenbrink (2010,
+    <DOI:10.18637/jss.v036.i07>).
+  license_family: GPL2
+  license_file:
+    - '{{ environ["PREFIX"] }}/lib/R/share/licenses/GPL-2'
 
 extra:
   recipe-maintainers:
     - conda-forge/r
-    - johanneskoester
-    - bgruening
-    - daler
-    - jdblischak
-    - cbrueffer
-    - dbast
     - npavlovikj
+
+# Package: depmixS4
+# Version: 1.4-0
+# Date: 2019-07-10
+# Title: Dependent Mixture Models - Hidden Markov Models of GLMs and Other Distributions in S4
+# Author: Ingmar Visser <i.visser@uva.nl>, Maarten Speekenbrink <m.speekenbrink@ucl.ac.uk>
+# Maintainer: Ingmar Visser <i.visser@uva.nl>
+# Depends: R (>= 3.5.0), nnet, MASS, Rsolnp, nlme
+# Imports: stats, stats4, methods
+# Suggests: gamlss, gamlss.dist, Rdonlp2
+# Additional_repositories: http://R-Forge.R-project.org
+# Description: Fits latent (hidden) Markov models on mixed categorical and continuous (time series) data, otherwise known as dependent mixture models, see Visser & Speekenbrink (2010, <DOI:10.18637/jss.v036.i07>).
+# License: GPL (>= 2)
+# URL: http://depmix.r-forge.r-project.org/
+# RoxygenNote: 6.1.0
+# NeedsCompilation: yes
+# Packaged: 2019-07-10 12:20:59 UTC; ingmar
+# Repository: CRAN
+# Date/Publication: 2019-07-10 14:02:32 UTC
