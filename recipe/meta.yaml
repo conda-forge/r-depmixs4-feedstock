@@ -1,4 +1,4 @@
-{% set version = '1.4-0' %}
+{% set version = '1.4-2' %}
 {% set posix = 'm2-' if win else '' %}
 {% set native = 'm2w64-' if win else '' %}
 
@@ -10,10 +10,11 @@ source:
   url:
     - {{ cran_mirror }}/src/contrib/depmixS4_{{ version }}.tar.gz
     - {{ cran_mirror }}/src/contrib/Archive/depmixS4/depmixS4_{{ version }}.tar.gz
-  sha256: 826f7b376428bc212778674a3e810d7b1b505b7385e7d38132eca878dedc106d
+  sha256: 587d1ec64709260a69dc55cb2ccff8ea209c206b7b519f3fc372d0657977a41d
 
 build:
   merge_build_host: True  # [win]
+  skip: True  # [r_base == "3.5*"]
   number: 0
   rpaths:
     - lib/R/lib/
