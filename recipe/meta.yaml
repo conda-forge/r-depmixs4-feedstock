@@ -14,7 +14,7 @@ source:
 
 build:
   merge_build_host: true  # [win]
-  skip: true  # [r_base == "3.5*"]
+  skip: true  # [r_base == "3.6*"]
   number: 0
   rpaths:
     - lib/R/lib/
@@ -50,7 +50,7 @@ test:
 
 about:
   home: http://depmix.r-forge.r-project.org/
-  license: GPL-2
+  license: GPL-2.0-or-later
   summary: Fits latent (hidden) Markov models on mixed categorical and continuous (time series) data, otherwise known as dependent mixture models, see Visser & Speekenbrink (2010, <DOI:10.18637/jss.v036.i07>).
   license_family: GPL2
   license_file:
